@@ -8,10 +8,10 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	httpSwagger "github.com/swaggo/http-swagger"
 	"github.com/kuznetsovmaksim/glossary/database"
 	"github.com/kuznetsovmaksim/glossary/handlers"
 	"github.com/rs/cors"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 // @title Glossary API
