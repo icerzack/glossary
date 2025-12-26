@@ -1,0 +1,81 @@
+[
+  {
+    "source": "REST",
+    "target": "API",
+    "type": "implements",
+    "description": "REST is a type of API architecture"
+  },
+  {
+    "source": "REST",
+    "target": "HTTP",
+    "type": "depends_on",
+    "description": "REST APIs typically use HTTP protocol"
+  },
+  {
+    "source": "API",
+    "target": "HTTP",
+    "type": "uses",
+    "description": "APIs often communicate over HTTP"
+  },
+  {
+    "source": "API",
+    "target": "JSON",
+    "type": "uses",
+    "description": "APIs commonly use JSON for data exchange"
+  },
+  {
+    "source": "Database",
+    "target": "SQL",
+    "type": "uses",
+    "description": "Relational databases use SQL for queries"
+  },
+  {
+    "source": "Docker",
+    "target": "Container",
+    "type": "implements",
+    "description": "Docker is a container platform"
+  },
+  {
+    "source": "Microservices",
+    "target": "API",
+    "type": "uses",
+    "description": "Microservices communicate via APIs"
+  },
+  {
+    "source": "Microservices",
+    "target": "Container",
+    "type": "uses",
+    "description": "Microservices are often deployed in containers"
+  },
+  {
+    "source": "OpenAPI",
+    "target": "REST",
+    "type": "documents",
+    "description": "OpenAPI is used to document REST APIs"
+  },
+  {
+    "source": "OpenAPI",
+    "target": "API",
+    "type": "documents",
+    "description": "OpenAPI provides API documentation"
+  },
+  {
+    "source": "Endpoint",
+    "target": "API",
+    "type": "part_of",
+    "description": "Endpoints are parts of an API"
+  },
+  {
+    "source": "CRUD",
+    "target": "Database",
+    "type": "related_to",
+    "description": "CRUD operations are performed on databases"
+  },
+  {
+    "source": "CRUD",
+    "target": "API",
+    "type": "related_to",
+    "description": "APIs often implement CRUD operations"
+  }
+]
+

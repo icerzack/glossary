@@ -1,0 +1,87 @@
+[
+  {
+    "name": "API",
+    "definition": "Application Programming Interface - a set of rules and protocols that allows different software applications to communicate with each other",
+    "category": "Software Architecture",
+    "source": "Mozilla Developer Network",
+    "source_url": "https://developer.mozilla.org/en-US/docs/Glossary/API"
+  },
+  {
+    "name": "REST",
+    "definition": "Representational State Transfer - an architectural style for designing networked applications using stateless communication and standard HTTP methods",
+    "category": "Software Architecture",
+    "source": "Roy Fielding's Dissertation",
+    "source_url": "https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm"
+  },
+  {
+    "name": "HTTP",
+    "definition": "Hypertext Transfer Protocol - the foundation of data communication for the World Wide Web",
+    "category": "Network Protocol",
+    "source": "IETF RFC 2616",
+    "source_url": "https://tools.ietf.org/html/rfc2616"
+  },
+  {
+    "name": "Database",
+    "definition": "An organized collection of structured data stored electronically in a computer system, typically controlled by a database management system (DBMS)",
+    "category": "Data Storage",
+    "source": "Oracle Documentation",
+    "source_url": "https://www.oracle.com/database/what-is-database/"
+  },
+  {
+    "name": "SQL",
+    "definition": "Structured Query Language - a standard language for storing, manipulating and retrieving data in relational databases",
+    "category": "Query Language",
+    "source": "ISO/IEC 9075",
+    "source_url": "https://www.iso.org/standard/63555.html"
+  },
+  {
+    "name": "JSON",
+    "definition": "JavaScript Object Notation - a lightweight data-interchange format that is easy for humans to read and write and easy for machines to parse and generate",
+    "category": "Data Format",
+    "source": "ECMA-404",
+    "source_url": "https://www.json.org/"
+  },
+  {
+    "name": "Docker",
+    "definition": "A platform for developing, shipping, and running applications in containers - isolated environments that package code and all its dependencies",
+    "category": "DevOps",
+    "source": "Docker Documentation",
+    "source_url": "https://docs.docker.com/"
+  },
+  {
+    "name": "Microservices",
+    "definition": "An architectural style that structures an application as a collection of loosely coupled, independently deployable services",
+    "category": "Software Architecture",
+    "source": "Martin Fowler",
+    "source_url": "https://martinfowler.com/articles/microservices.html"
+  },
+  {
+    "name": "Container",
+    "definition": "A standard unit of software that packages code and all its dependencies so the application runs quickly and reliably across different computing environments",
+    "category": "DevOps",
+    "source": "Docker Documentation",
+    "source_url": "https://www.docker.com/resources/what-container"
+  },
+  {
+    "name": "OpenAPI",
+    "definition": "A specification for building APIs that defines a standard, language-agnostic interface to RESTful APIs",
+    "category": "API Specification",
+    "source": "OpenAPI Initiative",
+    "source_url": "https://www.openapis.org/"
+  },
+  {
+    "name": "CRUD",
+    "definition": "Create, Read, Update, Delete - the four basic operations of persistent storage",
+    "category": "Software Development",
+    "source": "Software Engineering Principles",
+    "source_url": "https://en.wikipedia.org/wiki/Create,_read,_update_and_delete"
+  },
+  {
+    "name": "Endpoint",
+    "definition": "A specific URL where an API can be accessed and a specific function can be executed",
+    "category": "API",
+    "source": "API Design Best Practices",
+    "source_url": "https://swagger.io/resources/articles/best-practices-in-api-design/"
+  }
+]
+

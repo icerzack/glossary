@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  glossary:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      cache_from:
+        - glossary-app:latest
+    container_name: glossary-app
+    ports:
+      - "3000:3000"
+    volumes:
+      - glossary-data:/data
+    environment:
+      - PORT=8080
+      - DB_PATH=/data/glossary.db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  glossary-data:
+    driver: local
+
