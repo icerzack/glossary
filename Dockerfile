@@ -23,7 +23,9 @@ RUN swag init -g main.go --output docs
 # Build the application with cache
 RUN --mount=type=cache,target=/root/.cache/go-build \
     --mount=type=cache,target=/go/pkg/mod \
-    CGO_ENABLED=1 GOOS=linux go build -a -installsuffix cgo -o /app/glossary-server main.go
+    CGO_ENABLED=1 GOOS=linux \
+    CGO_CFLAGS="-D_LARGEFILE64_SOURCE" \
+    go build -a -installsuffix cgo -o /app/glossary-server main.go
 
 # Stage 2: Build React frontend
 FROM node:20-alpine AS frontend-builder
