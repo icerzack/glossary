@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import MindMap from './components/MindMap';
 import TermList from './components/TermList';
 import TermDetail from './components/TermDetail';
@@ -15,7 +15,6 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Load initial data
   const loadData = useCallback(async () => {
     try {
       setLoading(true);
@@ -38,7 +37,6 @@ function App() {
     loadData();
   }, [loadData]);
 
-  // Handle search
   const handleSearch = async (search: string, category: string) => {
     try {
       const data = await termsApi.getAll(search, category);
@@ -48,7 +46,6 @@ function App() {
     }
   };
 
-  // Handle node click in mind map
   const handleNodeClick = async (nodeId: number) => {
     try {
       const term = await termsApi.getById(nodeId);
@@ -60,28 +57,23 @@ function App() {
     }
   };
 
-  // Handle term click in list
   const handleTermClick = (term: Term) => {
     setSelectedTerm(term);
     setIsEditing(false);
     setShowDetail(true);
   };
 
-  // Handle add term
   const handleAddTerm = () => {
     setSelectedTerm(null);
     setIsEditing(true);
     setShowDetail(true);
   };
 
-  // Handle save term
   const handleSaveTerm = async (data: CreateTermRequest | UpdateTermRequest) => {
     try {
       if (selectedTerm) {
-        // Update existing term
         await termsApi.update(selectedTerm.id, data as UpdateTermRequest);
       } else {
-        // Create new term
         await termsApi.create(data as CreateTermRequest);
       }
       setShowDetail(false);
@@ -94,7 +86,6 @@ function App() {
     }
   };
 
-  // Handle delete term
   const handleDeleteTerm = async () => {
     if (!selectedTerm) return;
     
@@ -113,7 +104,6 @@ function App() {
     }
   };
 
-  // Handle close detail
   const handleCloseDetail = () => {
     setShowDetail(false);
     setSelectedTerm(null);
