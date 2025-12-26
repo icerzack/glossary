@@ -25,7 +25,6 @@ func TestGetAllRelationships(t *testing.T) {
 	handler, db := setupTestRelationshipHandler(t)
 	defer db.Close()
 
-	// Create test terms
 	term1, _ := db.CreateTerm(&models.CreateTermRequest{
 		Name:       "Term 1",
 		Definition: "Definition 1",
@@ -37,7 +36,6 @@ func TestGetAllRelationships(t *testing.T) {
 		Category:   "Category 2",
 	})
 
-	// Create relationship
 	_, err := db.CreateRelationship(models.CreateRelationshipRequest{
 		SourceTermID: term1.ID,
 		TargetTermID: term2.ID,
@@ -71,7 +69,6 @@ func TestCreateRelationship(t *testing.T) {
 	handler, db := setupTestRelationshipHandler(t)
 	defer db.Close()
 
-	// Create test terms
 	term1, _ := db.CreateTerm(&models.CreateTermRequest{
 		Name:       "Term 1",
 		Definition: "Definition 1",
@@ -115,7 +112,6 @@ func TestCreateRelationshipInvalidRequest(t *testing.T) {
 	handler, db := setupTestRelationshipHandler(t)
 	defer db.Close()
 
-	// Missing required fields
 	reqBody := models.CreateRelationshipRequest{
 		SourceTermID: 1,
 	}
@@ -136,7 +132,6 @@ func TestDeleteRelationship(t *testing.T) {
 	handler, db := setupTestRelationshipHandler(t)
 	defer db.Close()
 
-	// Create test terms
 	term1, _ := db.CreateTerm(&models.CreateTermRequest{
 		Name:       "Term 1",
 		Definition: "Definition 1",
@@ -148,7 +143,6 @@ func TestDeleteRelationship(t *testing.T) {
 		Category:   "Category 2",
 	})
 
-	// Create relationship
 	rel, err := db.CreateRelationship(models.CreateRelationshipRequest{
 		SourceTermID: term1.ID,
 		TargetTermID: term2.ID,
@@ -169,7 +163,6 @@ func TestDeleteRelationship(t *testing.T) {
 		t.Errorf("Expected status 204, got %d", w.Code)
 	}
 
-	// Verify relationship is deleted
 	relationships, err := db.GetAllRelationships()
 	if err != nil {
 		t.Fatalf("Failed to get relationships: %v", err)
@@ -186,7 +179,6 @@ func TestGetGraph(t *testing.T) {
 	handler, db := setupTestRelationshipHandler(t)
 	defer db.Close()
 
-	// Create test terms
 	term1, _ := db.CreateTerm(&models.CreateTermRequest{
 		Name:       "Term 1",
 		Definition: "Definition 1",
@@ -198,7 +190,6 @@ func TestGetGraph(t *testing.T) {
 		Category:   "Category 2",
 	})
 
-	// Create relationship
 	_, err := db.CreateRelationship(models.CreateRelationshipRequest{
 		SourceTermID: term1.ID,
 		TargetTermID: term2.ID,

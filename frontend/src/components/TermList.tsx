@@ -18,7 +18,6 @@ const TermList: React.FC<TermListProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  // Extract unique categories
   const categories = Array.from(new Set(terms.map((t) => t.category))).sort();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {

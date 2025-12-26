@@ -17,7 +17,6 @@ const api = axios.create({
   },
 });
 
-// Terms API
 export const termsApi = {
   getAll: async (search?: string, category?: string): Promise<Term[]> => {
     const params = new URLSearchParams();
@@ -47,7 +46,6 @@ export const termsApi = {
   },
 };
 
-// Relationships API
 export const relationshipsApi = {
   getAll: async (): Promise<Relationship[]> => {
     const response = await api.get<Relationship[]>('/relationships');
@@ -64,7 +62,6 @@ export const relationshipsApi = {
   },
 };
 
-// Graph API
 export const graphApi = {
   get: async (): Promise<Graph> => {
     const response = await api.get<Graph>('/graph');

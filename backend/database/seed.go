@@ -12,7 +12,6 @@ var termsJSON []byte
 //go:embed seed/relationships.json
 var relationshipsJSON []byte
 
-// SeedTerm represents a term in the seed data
 type SeedTerm struct {
 	Name       string `json:"name"`
 	Definition string `json:"definition"`
@@ -21,7 +20,6 @@ type SeedTerm struct {
 	SourceURL  string `json:"source_url"`
 }
 
-// SeedRelationship represents a relationship in the seed data
 type SeedRelationship struct {
 	Source      string `json:"source"`
 	Target      string `json:"target"`
@@ -29,9 +27,7 @@ type SeedRelationship struct {
 	Description string `json:"description"`
 }
 
-// SeedData populates the database with sample terms and relationships
 func (db *DB) SeedData() error {
-	// Check if data already exists
 	var count int
 	err := db.QueryRow("SELECT COUNT(*) FROM terms").Scan(&count)
 	if err != nil {
@@ -41,19 +37,16 @@ func (db *DB) SeedData() error {
 		return nil // Data already seeded
 	}
 
-	// Parse terms JSON
 	var seedTerms []SeedTerm
 	if err := json.Unmarshal(termsJSON, &seedTerms); err != nil {
 		return fmt.Errorf("failed to parse terms JSON: %w", err)
 	}
 
-	// Parse relationships JSON
 	var seedRelationships []SeedRelationship
 	if err := json.Unmarshal(relationshipsJSON, &seedRelationships); err != nil {
 		return fmt.Errorf("failed to parse relationships JSON: %w", err)
 	}
 
-	// Insert terms and store their IDs
 	termIDs := make(map[string]int64)
 	for i := range seedTerms {
 		term := &seedTerms[i]
@@ -69,7 +62,6 @@ func (db *DB) SeedData() error {
 		termIDs[term.Name] = id
 	}
 
-	// Insert relationships
 	for i := range seedRelationships {
 		rel := &seedRelationships[i]
 		sourceID, ok := termIDs[rel.Source]

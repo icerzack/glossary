@@ -1,7 +1,7 @@
-.PHONY: build test lint run clean
+.PHONY: build test lint run clean swagger
 
 # Build the application
-build:
+build: swagger
 	go build -o bin/glossary-server main.go
 
 # Run tests
@@ -18,12 +18,13 @@ lint:
 	golangci-lint run
 
 # Run the application
-run:
+run: swagger
 	go run main.go
 
 # Clean build artifacts
 clean:
 	rm -rf bin/
+	rm -rf docs/
 	rm -f glossary.db
 	rm -f coverage.out coverage.html
 
@@ -31,9 +32,14 @@ clean:
 deps:
 	go mod download
 	go mod tidy
+	go install github.com/swaggo/swag/cmd/swag@latest
 
 # Format code
 fmt:
 	go fmt ./...
 	goimports -w .
+
+# Generate Swagger documentation
+swagger:
+	swag init -g main.go --output docs
 

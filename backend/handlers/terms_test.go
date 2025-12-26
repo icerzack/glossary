@@ -25,7 +25,6 @@ func TestGetAllTerms(t *testing.T) {
 	handler, db := setupTestHandler(t)
 	defer db.Close()
 
-	// Create test term
 	_, err := db.CreateTerm(&models.CreateTermRequest{
 		Name:       "Test Term",
 		Definition: "Test Definition",
@@ -58,7 +57,6 @@ func TestGetTermByID(t *testing.T) {
 	handler, db := setupTestHandler(t)
 	defer db.Close()
 
-	// Create test term
 	term, err := db.CreateTerm(&models.CreateTermRequest{
 		Name:       "Test Term",
 		Definition: "Test Definition",
@@ -71,7 +69,6 @@ func TestGetTermByID(t *testing.T) {
 	req := httptest.NewRequest("GET", "/api/terms/1", nil)
 	w := httptest.NewRecorder()
 
-	// Set up router to extract ID from URL
 	router := mux.NewRouter()
 	router.HandleFunc("/api/terms/{id}", handler.GetTermByID)
 	router.ServeHTTP(w, req)
@@ -127,7 +124,6 @@ func TestCreateTermInvalidRequest(t *testing.T) {
 	handler, db := setupTestHandler(t)
 	defer db.Close()
 
-	// Missing required fields
 	reqBody := models.CreateTermRequest{
 		Name: "Incomplete Term",
 	}
@@ -148,7 +144,6 @@ func TestUpdateTerm(t *testing.T) {
 	handler, db := setupTestHandler(t)
 	defer db.Close()
 
-	// Create test term
 	term, err := db.CreateTerm(&models.CreateTermRequest{
 		Name:       "Original Name",
 		Definition: "Original Definition",
@@ -195,7 +190,6 @@ func TestDeleteTerm(t *testing.T) {
 	handler, db := setupTestHandler(t)
 	defer db.Close()
 
-	// Create test term
 	term, err := db.CreateTerm(&models.CreateTermRequest{
 		Name:       "Term to Delete",
 		Definition: "This will be deleted",
@@ -216,7 +210,6 @@ func TestDeleteTerm(t *testing.T) {
 		t.Errorf("Expected status 204, got %d", w.Code)
 	}
 
-	// Verify term is deleted
 	_, err = db.GetTermByID(term.ID)
 	if err == nil {
 		t.Error("Expected error when getting deleted term, got nil")
@@ -227,7 +220,6 @@ func TestSearchTerms(t *testing.T) {
 	handler, db := setupTestHandler(t)
 	defer db.Close()
 
-	// Create test terms
 	terms := []models.CreateTermRequest{
 		{Name: "Docker", Definition: "Container platform", Category: "DevOps"},
 		{Name: "Kubernetes", Definition: "Container orchestration", Category: "DevOps"},
@@ -241,7 +233,6 @@ func TestSearchTerms(t *testing.T) {
 		}
 	}
 
-	// Search by keyword
 	req := httptest.NewRequest("GET", "/api/terms?search=Container", nil)
 	w := httptest.NewRecorder()
 
@@ -265,7 +256,6 @@ func TestFilterByCategory(t *testing.T) {
 	handler, db := setupTestHandler(t)
 	defer db.Close()
 
-	// Create test terms
 	terms := []models.CreateTermRequest{
 		{Name: "Docker", Definition: "Container platform", Category: "DevOps"},
 		{Name: "Kubernetes", Definition: "Container orchestration", Category: "DevOps"},
@@ -279,7 +269,6 @@ func TestFilterByCategory(t *testing.T) {
 		}
 	}
 
-	// Filter by category
 	req := httptest.NewRequest("GET", "/api/terms?category=DevOps", nil)
 	w := httptest.NewRecorder()
 

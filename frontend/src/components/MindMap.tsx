@@ -24,9 +24,7 @@ const getNodeColor = (category: string): string => {
   return stringToColor(category);
 };
 
-// Convert API graph to ReactFlow format
 const convertGraphToFlow = (graph: Graph): { nodes: Node[]; edges: Edge[] } => {
-  // Calculate layout using force-directed approach
   const nodes: Node[] = graph.nodes.map((node: ApiGraphNode, index: number) => {
     const angle = (2 * Math.PI * index) / graph.nodes.length;
     const radius = 300;

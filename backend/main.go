@@ -8,23 +8,23 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
+	httpSwagger "github.com/swaggo/http-swagger"
 	"github.com/kuznetsovmaksim/glossary/database"
 	"github.com/kuznetsovmaksim/glossary/handlers"
 	"github.com/rs/cors"
 )
 
+// @title Glossary API
+// @version 1.0
 func main() {
-	// Parse command-line flags
 	seedFlag := flag.Bool("seed", false, "Seed the database with sample data")
 	flag.Parse()
 
-	// Get database path from environment or use default
 	dbPath := os.Getenv("DB_PATH")
 	if dbPath == "" {
 		dbPath = "./glossary.db"
 	}
 
-	// Initialize database
 	db, err := database.NewDB(dbPath)
 	if err != nil {
 		log.Fatalf("Failed to initialize database: %v", err)
@@ -35,7 +35,6 @@ func main() {
 		}
 	}()
 
-	// Seed initial data if flag is set
 	if *seedFlag {
 		log.Println("Seeding database with sample data...")
 		if err := db.SeedData(); err != nil {
@@ -45,32 +44,27 @@ func main() {
 		log.Println("Database seeded successfully")
 	}
 
-	// Initialize handlers
 	termHandler := handlers.NewTermHandler(db)
 	relationshipHandler := handlers.NewRelationshipHandler(db)
 
-	// Setup router
 	r := mux.NewRouter()
 
-	// API routes
 	api := r.PathPrefix("/api").Subrouter()
 
-	// Term routes
 	api.HandleFunc("/terms", termHandler.GetAllTerms).Methods("GET")
 	api.HandleFunc("/terms", termHandler.CreateTerm).Methods("POST")
 	api.HandleFunc("/terms/{id}", termHandler.GetTermByID).Methods("GET")
 	api.HandleFunc("/terms/{id}", termHandler.UpdateTerm).Methods("PUT")
 	api.HandleFunc("/terms/{id}", termHandler.DeleteTerm).Methods("DELETE")
 
-	// Relationship routes
 	api.HandleFunc("/relationships", relationshipHandler.GetAllRelationships).Methods("GET")
 	api.HandleFunc("/relationships", relationshipHandler.CreateRelationship).Methods("POST")
 	api.HandleFunc("/relationships/{id}", relationshipHandler.DeleteRelationship).Methods("DELETE")
 
-	// Graph route
 	api.HandleFunc("/graph", relationshipHandler.GetGraph).Methods("GET")
 
-	// Health check
+	r.PathPrefix("/swagger/").Handler(httpSwagger.WrapHandler)
+
 	r.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		if _, err := w.Write([]byte("OK")); err != nil {
@@ -78,7 +72,6 @@ func main() {
 		}
 	}).Methods("GET")
 
-	// Setup CORS
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
@@ -88,13 +81,11 @@ func main() {
 
 	handler := c.Handler(r)
 
-	// Get port from environment or use default
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
 
-	// Create server with timeouts
 	server := &http.Server{
 		Addr:              ":" + port,
 		Handler:           handler,

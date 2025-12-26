@@ -11,10 +11,14 @@ RUN --mount=type=cache,target=/var/cache/apk \
 # Copy go mod files and download dependencies with cache
 COPY backend/go.mod backend/go.sum* ./
 RUN --mount=type=cache,target=/go/pkg/mod \
-    go mod download
+    go mod download && \
+    go install github.com/swaggo/swag/cmd/swag@latest
 
 # Copy backend source
 COPY backend/ ./
+
+# Generate Swagger documentation
+RUN swag init -g main.go --output docs
 
 # Build the application with cache
 RUN --mount=type=cache,target=/root/.cache/go-build \

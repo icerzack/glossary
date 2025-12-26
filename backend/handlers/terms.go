@@ -10,17 +10,25 @@ import (
 	"github.com/kuznetsovmaksim/glossary/models"
 )
 
-// TermHandler handles term-related HTTP requests
 type TermHandler struct {
 	db *database.DB
 }
 
-// NewTermHandler creates a new TermHandler
 func NewTermHandler(db *database.DB) *TermHandler {
 	return &TermHandler{db: db}
 }
 
-// GetAllTerms handles GET /api/terms
+// GetAllTerms godoc
+// @Summary Get all terms
+// @Description Get all glossary terms with optional search and filtering
+// @Tags terms
+// @Accept json
+// @Produce json
+// @Param search query string false "Search query for term name or definition"
+// @Param category query string false "Filter by category"
+// @Success 200 {array} models.Term
+// @Failure 500 {string} string "Internal server error"
+// @Router /terms [get]
 func (h *TermHandler) GetAllTerms(w http.ResponseWriter, r *http.Request) {
 	search := r.URL.Query().Get("search")
 	category := r.URL.Query().Get("category")
@@ -45,7 +53,17 @@ func (h *TermHandler) GetAllTerms(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// GetTermByID handles GET /api/terms/{id}
+// GetTermByID godoc
+// @Summary Get term by ID
+// @Description Get a specific term by its ID
+// @Tags terms
+// @Accept json
+// @Produce json
+// @Param id path int true "Term ID"
+// @Success 200 {object} models.Term
+// @Failure 400 {string} string "Invalid term ID"
+// @Failure 404 {string} string "Term not found"
+// @Router /terms/{id} [get]
 func (h *TermHandler) GetTermByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.ParseInt(vars["id"], 10, 64)
@@ -66,7 +84,17 @@ func (h *TermHandler) GetTermByID(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// CreateTerm handles POST /api/terms
+// CreateTerm godoc
+// @Summary Create a new term
+// @Description Add a new term to the glossary
+// @Tags terms
+// @Accept json
+// @Produce json
+// @Param term body models.CreateTermRequest true "Term data"
+// @Success 201 {object} models.Term
+// @Failure 400 {string} string "Invalid request body or missing required fields"
+// @Failure 500 {string} string "Internal server error"
+// @Router /terms [post]
 func (h *TermHandler) CreateTerm(w http.ResponseWriter, r *http.Request) {
 	var req models.CreateTermRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
@@ -92,7 +120,18 @@ func (h *TermHandler) CreateTerm(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// UpdateTerm handles PUT /api/terms/{id}
+// UpdateTerm godoc
+// @Summary Update a term
+// @Description Update an existing term
+// @Tags terms
+// @Accept json
+// @Produce json
+// @Param id path int true "Term ID"
+// @Param term body models.UpdateTermRequest true "Updated term data"
+// @Success 200 {object} models.Term
+// @Failure 400 {string} string "Invalid request"
+// @Failure 500 {string} string "Internal server error"
+// @Router /terms/{id} [put]
 func (h *TermHandler) UpdateTerm(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.ParseInt(vars["id"], 10, 64)
@@ -124,7 +163,17 @@ func (h *TermHandler) UpdateTerm(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// DeleteTerm handles DELETE /api/terms/{id}
+// DeleteTerm godoc
+// @Summary Delete a term
+// @Description Delete a term from the glossary
+// @Tags terms
+// @Accept json
+// @Produce json
+// @Param id path int true "Term ID"
+// @Success 204 "Term deleted successfully"
+// @Failure 400 {string} string "Invalid term ID"
+// @Failure 500 {string} string "Internal server error"
+// @Router /terms/{id} [delete]
 func (h *TermHandler) DeleteTerm(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.ParseInt(vars["id"], 10, 64)

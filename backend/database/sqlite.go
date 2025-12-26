@@ -9,12 +9,10 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-// DB wraps the database connection
 type DB struct {
 	*sql.DB
 }
 
-// NewDB creates a new database connection and initializes the schema
 func NewDB(dataSourceName string) (*DB, error) {
 	db, err := sql.Open("sqlite3", dataSourceName)
 	if err != nil {
@@ -33,7 +31,6 @@ func NewDB(dataSourceName string) (*DB, error) {
 	return database, nil
 }
 
-// createSchema creates the database tables
 func (db *DB) createSchema() error {
 	schema := `
 	CREATE TABLE IF NOT EXISTS terms (
@@ -69,7 +66,6 @@ func (db *DB) createSchema() error {
 	return err
 }
 
-// GetAllTerms retrieves all terms from the database
 func (db *DB) GetAllTerms() ([]models.Term, error) {
 	rows, err := db.Query(`
 		SELECT id, name, definition, category, source, source_url, created_at, updated_at 
@@ -97,7 +93,6 @@ func (db *DB) GetAllTerms() ([]models.Term, error) {
 	return terms, rows.Err()
 }
 
-// GetTermByID retrieves a term by its ID
 func (db *DB) GetTermByID(id int64) (*models.Term, error) {
 	var term models.Term
 	err := db.QueryRow(`
@@ -114,7 +109,6 @@ func (db *DB) GetTermByID(id int64) (*models.Term, error) {
 	return &term, nil
 }
 
-// SearchTerms searches for terms by name or definition
 func (db *DB) SearchTerms(query, category string) ([]models.Term, error) {
 	var rows *sql.Rows
 	var err error
@@ -156,7 +150,6 @@ func (db *DB) SearchTerms(query, category string) ([]models.Term, error) {
 	return terms, rows.Err()
 }
 
-// CreateTerm creates a new term
 func (db *DB) CreateTerm(req *models.CreateTermRequest) (*models.Term, error) {
 	result, err := db.Exec(`
 		INSERT INTO terms (name, definition, category, source, source_url) 
@@ -174,7 +167,6 @@ func (db *DB) CreateTerm(req *models.CreateTermRequest) (*models.Term, error) {
 	return db.GetTermByID(id)
 }
 
-// UpdateTerm updates an existing term
 func (db *DB) UpdateTerm(id int64, req *models.UpdateTermRequest) (*models.Term, error) {
 	_, err := db.Exec(`
 		UPDATE terms 
@@ -188,13 +180,11 @@ func (db *DB) UpdateTerm(id int64, req *models.UpdateTermRequest) (*models.Term,
 	return db.GetTermByID(id)
 }
 
-// DeleteTerm deletes a term
 func (db *DB) DeleteTerm(id int64) error {
 	_, err := db.Exec("DELETE FROM terms WHERE id = ?", id)
 	return err
 }
 
-// GetAllRelationships retrieves all relationships
 func (db *DB) GetAllRelationships() ([]models.Relationship, error) {
 	rows, err := db.Query(`
 		SELECT id, source_term_id, target_term_id, type, description, created_at 
@@ -221,7 +211,6 @@ func (db *DB) GetAllRelationships() ([]models.Relationship, error) {
 	return relationships, rows.Err()
 }
 
-// CreateRelationship creates a new relationship
 func (db *DB) CreateRelationship(req models.CreateRelationshipRequest) (*models.Relationship, error) {
 	result, err := db.Exec(`
 		INSERT INTO relationships (source_term_id, target_term_id, type, description) 
@@ -252,15 +241,12 @@ func (db *DB) CreateRelationship(req models.CreateRelationshipRequest) (*models.
 	return &rel, nil
 }
 
-// DeleteRelationship deletes a relationship
 func (db *DB) DeleteRelationship(id int64) error {
 	_, err := db.Exec("DELETE FROM relationships WHERE id = ?", id)
 	return err
 }
 
-// GetGraph retrieves the complete semantic graph
 func (db *DB) GetGraph() (*models.Graph, error) {
-	// Get all terms as nodes
 	terms, err := db.GetAllTerms()
 	if err != nil {
 		return nil, err
@@ -276,7 +262,6 @@ func (db *DB) GetGraph() (*models.Graph, error) {
 		})
 	}
 
-	// Get all relationships as edges
 	relationships, err := db.GetAllRelationships()
 	if err != nil {
 		return nil, err

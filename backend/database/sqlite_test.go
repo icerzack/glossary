@@ -9,7 +9,6 @@ import (
 
 func setupTestDB(t *testing.T) *DB {
 	t.Helper()
-	// Create temporary database
 	dbPath := ":memory:"
 	db, err := NewDB(dbPath)
 	if err != nil {
@@ -58,7 +57,6 @@ func TestGetTermByID(t *testing.T) {
 	db := setupTestDB(t)
 	defer db.Close()
 
-	// Create a term first
 	req := models.CreateTermRequest{
 		Name:       "Test Term",
 		Definition: "Test Definition",
@@ -70,7 +68,6 @@ func TestGetTermByID(t *testing.T) {
 		t.Fatalf("Failed to create term: %v", err)
 	}
 
-	// Get the term by ID
 	term, err := db.GetTermByID(created.ID)
 	if err != nil {
 		t.Fatalf("Failed to get term by ID: %v", err)
@@ -89,7 +86,6 @@ func TestGetAllTerms(t *testing.T) {
 	db := setupTestDB(t)
 	defer db.Close()
 
-	// Create multiple terms
 	terms := []models.CreateTermRequest{
 		{Name: "Term 1", Definition: "Definition 1", Category: "Category 1"},
 		{Name: "Term 2", Definition: "Definition 2", Category: "Category 2"},
@@ -103,7 +99,6 @@ func TestGetAllTerms(t *testing.T) {
 		}
 	}
 
-	// Get all terms
 	allTerms, err := db.GetAllTerms()
 	if err != nil {
 		t.Fatalf("Failed to get all terms: %v", err)
@@ -118,7 +113,6 @@ func TestSearchTerms(t *testing.T) {
 	db := setupTestDB(t)
 	defer db.Close()
 
-	// Create test terms
 	terms := []models.CreateTermRequest{
 		{Name: "Docker", Definition: "Container platform", Category: "DevOps"},
 		{Name: "Kubernetes", Definition: "Container orchestration", Category: "DevOps"},
@@ -132,7 +126,6 @@ func TestSearchTerms(t *testing.T) {
 		}
 	}
 
-	// Search by keyword
 	results, err := db.SearchTerms("Container", "")
 	if err != nil {
 		t.Fatalf("Failed to search terms: %v", err)
@@ -142,7 +135,6 @@ func TestSearchTerms(t *testing.T) {
 		t.Errorf("Expected 2 results, got %d", len(results))
 	}
 
-	// Search by category
 	results, err = db.SearchTerms("", "DevOps")
 	if err != nil {
 		t.Fatalf("Failed to search terms by category: %v", err)
@@ -157,7 +149,6 @@ func TestUpdateTerm(t *testing.T) {
 	db := setupTestDB(t)
 	defer db.Close()
 
-	// Create a term
 	req := models.CreateTermRequest{
 		Name:       "Original Name",
 		Definition: "Original Definition",
@@ -169,7 +160,6 @@ func TestUpdateTerm(t *testing.T) {
 		t.Fatalf("Failed to create term: %v", err)
 	}
 
-	// Update the term
 	updateReq := models.UpdateTermRequest{
 		Name:       "Updated Name",
 		Definition: "Updated Definition",
@@ -194,7 +184,6 @@ func TestDeleteTerm(t *testing.T) {
 	db := setupTestDB(t)
 	defer db.Close()
 
-	// Create a term
 	req := models.CreateTermRequest{
 		Name:       "Term to Delete",
 		Definition: "This will be deleted",
@@ -206,13 +195,11 @@ func TestDeleteTerm(t *testing.T) {
 		t.Fatalf("Failed to create term: %v", err)
 	}
 
-	// Delete the term
 	err = db.DeleteTerm(created.ID)
 	if err != nil {
 		t.Fatalf("Failed to delete term: %v", err)
 	}
 
-	// Try to get the deleted term
 	_, err = db.GetTermByID(created.ID)
 	if err == nil {
 		t.Error("Expected error when getting deleted term, got nil")
@@ -223,7 +210,6 @@ func TestCreateRelationship(t *testing.T) {
 	db := setupTestDB(t)
 	defer db.Close()
 
-	// Create two terms
 	term1, _ := db.CreateTerm(&models.CreateTermRequest{
 		Name:       "Term 1",
 		Definition: "Definition 1",
@@ -236,7 +222,6 @@ func TestCreateRelationship(t *testing.T) {
 		Category:   "Category 2",
 	})
 
-	// Create relationship
 	relReq := models.CreateRelationshipRequest{
 		SourceTermID: term1.ID,
 		TargetTermID: term2.ID,
@@ -262,7 +247,6 @@ func TestGetGraph(t *testing.T) {
 	db := setupTestDB(t)
 	defer db.Close()
 
-	// Create terms
 	term1, _ := db.CreateTerm(&models.CreateTermRequest{
 		Name:       "Term 1",
 		Definition: "Definition 1",
@@ -275,7 +259,6 @@ func TestGetGraph(t *testing.T) {
 		Category:   "Category 2",
 	})
 
-	// Create relationship
 	_, err := db.CreateRelationship(models.CreateRelationshipRequest{
 		SourceTermID: term1.ID,
 		TargetTermID: term2.ID,
@@ -285,7 +268,6 @@ func TestGetGraph(t *testing.T) {
 		t.Fatalf("Failed to create relationship: %v", err)
 	}
 
-	// Get graph
 	graph, err := db.GetGraph()
 	if err != nil {
 		t.Fatalf("Failed to get graph: %v", err)
@@ -301,7 +283,6 @@ func TestGetGraph(t *testing.T) {
 }
 
 func TestSeedData(t *testing.T) {
-	// Create temporary file for database
 	tmpFile, err := os.CreateTemp("", "test-*.db")
 	if err != nil {
 		t.Fatalf("Failed to create temp file: %v", err)
@@ -315,13 +296,11 @@ func TestSeedData(t *testing.T) {
 	}
 	defer db.Close()
 
-	// Seed data
 	err = db.SeedData()
 	if err != nil {
 		t.Fatalf("Failed to seed data: %v", err)
 	}
 
-	// Verify data was seeded
 	terms, err := db.GetAllTerms()
 	if err != nil {
 		t.Fatalf("Failed to get terms: %v", err)
@@ -331,7 +310,6 @@ func TestSeedData(t *testing.T) {
 		t.Error("Expected seeded terms, got none")
 	}
 
-	// Try seeding again - should not duplicate
 	err = db.SeedData()
 	if err != nil {
 		t.Fatalf("Failed to seed data second time: %v", err)
