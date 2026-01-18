@@ -1,17 +1,22 @@
 #!/bin/sh
 set -e
 
-# Start backend in background
-echo "Starting backend server..."
+BACKEND_PORT=${PORT:-8080}
+NGINX_PORT=${NGINX_PORT:-3000}
+
+export BACKEND_PORT
+export NGINX_PORT
+
+envsubst '${BACKEND_PORT} ${NGINX_PORT}' < /etc/nginx/nginx.conf > /tmp/nginx.conf
+mv /tmp/nginx.conf /etc/nginx/nginx.conf
+
+echo "Starting backend server on port ${BACKEND_PORT}..."
 /usr/local/bin/glossary-server --seed &
 BACKEND_PID=$!
 
-# Wait for backend to be ready with healthcheck
 echo "Waiting for backend to start..."
 MAX_ATTEMPTS=30
 ATTEMPT=0
-
-BACKEND_PORT=${PORT:-8080}
 
 while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
   if wget --spider --quiet "http://localhost:${BACKEND_PORT}/health" 2>/dev/null; then
@@ -28,7 +33,6 @@ if [ $ATTEMPT -eq $MAX_ATTEMPTS ]; then
   exit 1
 fi
 
-# Start nginx in foreground
 echo "Starting nginx..."
 exec nginx -g "daemon off;"
 
