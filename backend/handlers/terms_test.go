@@ -38,7 +38,7 @@ func TestGetAllTerms(t *testing.T) {
 		t.Fatalf("Failed to create test term: %v", err)
 	}
 
-	req := httptest.NewRequest("GET", "/api/terms", nil)
+	req := httptest.NewRequest("GET", "/api/terms", http.NoBody)
 	w := httptest.NewRecorder()
 
 	handler.GetAllTerms(w, req)
@@ -74,7 +74,7 @@ func TestGetTermByID(t *testing.T) {
 		t.Fatalf("Failed to create test term: %v", err)
 	}
 
-	req := httptest.NewRequest("GET", "/api/terms/1", nil)
+	req := httptest.NewRequest("GET", "/api/terms/1", http.NoBody)
 	w := httptest.NewRecorder()
 
 	router := mux.NewRouter()
@@ -226,7 +226,7 @@ func TestDeleteTerm(t *testing.T) {
 		t.Fatalf("Failed to create test term: %v", err)
 	}
 
-	req := httptest.NewRequest("DELETE", "/api/terms/1", nil)
+	req := httptest.NewRequest("DELETE", "/api/terms/1", http.NoBody)
 	w := httptest.NewRecorder()
 
 	router := mux.NewRouter()
@@ -264,7 +264,7 @@ func TestSearchTerms(t *testing.T) {
 		}
 	}
 
-	req := httptest.NewRequest("GET", "/api/terms?search=Container", nil)
+	req := httptest.NewRequest("GET", "/api/terms?search=Container", http.NoBody)
 	w := httptest.NewRecorder()
 
 	handler.GetAllTerms(w, req)
@@ -304,7 +304,7 @@ func TestFilterByCategory(t *testing.T) {
 		}
 	}
 
-	req := httptest.NewRequest("GET", "/api/terms?category=DevOps", nil)
+	req := httptest.NewRequest("GET", "/api/terms?category=DevOps", http.NoBody)
 	w := httptest.NewRecorder()
 
 	handler.GetAllTerms(w, req)
