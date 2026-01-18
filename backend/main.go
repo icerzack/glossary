@@ -125,7 +125,7 @@ func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
 
 func startServer(server *http.Server) {
 	port := server.Addr
-	if len(port) > 0 && port[0] == ':' {
+	if port != "" && port[0] == ':' {
 		port = port[1:]
 	}
 	log.Printf("Server starting on port %s", port)

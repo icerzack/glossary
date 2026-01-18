@@ -70,6 +70,7 @@ linters:
           - mnd
           - funlen
           - gocyclo
+          - dupl
       - path: (^|/)docs/.*\.go$
         linters:
           - gochecknoinits

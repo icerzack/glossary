@@ -22,11 +22,9 @@ func TestNewDB(t *testing.T) {
 	if db == nil {
 		t.Fatal("Expected database connection, got nil")
 	}
-	defer func() {
-		if err := db.Close(); err != nil {
-			t.Errorf("Failed to close database: %v", err)
-		}
-	}()
+	if err := db.Close(); err != nil {
+		t.Errorf("Failed to close database: %v", err)
+	}
 }
 
 func TestCreateTerm(t *testing.T) {

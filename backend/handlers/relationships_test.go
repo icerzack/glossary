@@ -50,7 +50,7 @@ func TestGetAllRelationships(t *testing.T) {
 		t.Fatalf("Failed to create relationship: %v", err)
 	}
 
-	req := httptest.NewRequest("GET", "/api/relationships", nil)
+	req := httptest.NewRequest("GET", "/api/relationships", http.NoBody)
 	w := httptest.NewRecorder()
 
 	handler.GetAllRelationships(w, req)
@@ -128,7 +128,10 @@ func TestCreateRelationshipInvalidRequest(t *testing.T) {
 		SourceTermID: 1,
 	}
 
-	body, _ := json.Marshal(reqBody)
+	body, err := json.Marshal(reqBody)
+	if err != nil {
+		t.Fatalf("Failed to marshal request body: %v", err)
+	}
 	req := httptest.NewRequest("POST", "/api/relationships", bytes.NewBuffer(body))
 	req.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
@@ -168,7 +171,7 @@ func TestDeleteRelationship(t *testing.T) {
 		t.Fatalf("Failed to create relationship: %v", err)
 	}
 
-	req := httptest.NewRequest("DELETE", "/api/relationships/1", nil)
+	req := httptest.NewRequest("DELETE", "/api/relationships/1", http.NoBody)
 	w := httptest.NewRecorder()
 
 	router := mux.NewRouter()
@@ -219,7 +222,7 @@ func TestGetGraph(t *testing.T) {
 		t.Fatalf("Failed to create relationship: %v", err)
 	}
 
-	req := httptest.NewRequest("GET", "/api/graph", nil)
+	req := httptest.NewRequest("GET", "/api/graph", http.NoBody)
 	w := httptest.NewRecorder()
 
 	handler.GetGraph(w, req)

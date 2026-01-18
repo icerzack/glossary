@@ -144,7 +144,10 @@ func TestCreateTermInvalidRequest(t *testing.T) {
 		Name: "Incomplete Term",
 	}
 
-	body, _ := json.Marshal(reqBody)
+	body, err := json.Marshal(reqBody)
+	if err != nil {
+		t.Fatalf("Failed to marshal request body: %v", err)
+	}
 	req := httptest.NewRequest("POST", "/api/terms", bytes.NewBuffer(body))
 	req.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
