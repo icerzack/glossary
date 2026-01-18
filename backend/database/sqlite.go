@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/kuznetsovmaksim/glossary/models"
+	"github.com/icerzack/glossary/models"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -75,7 +75,9 @@ func (db *DB) GetAllTerms() ([]models.Term, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() {
+		_ = rows.Close()
+	}()
 
 	var terms []models.Term
 	for rows.Next() {
@@ -132,7 +134,9 @@ func (db *DB) SearchTerms(query, category string) ([]models.Term, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() {
+		_ = rows.Close()
+	}()
 
 	var terms []models.Term
 	for rows.Next() {
@@ -193,7 +197,9 @@ func (db *DB) GetAllRelationships() ([]models.Relationship, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() {
+		_ = rows.Close()
+	}()
 
 	var relationships []models.Relationship
 	for rows.Next() {

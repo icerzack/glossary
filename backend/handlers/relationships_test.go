@@ -8,8 +8,8 @@ import (
 	"testing"
 
 	"github.com/gorilla/mux"
-	"github.com/kuznetsovmaksim/glossary/database"
-	"github.com/kuznetsovmaksim/glossary/models"
+	"github.com/icerzack/glossary/database"
+	"github.com/icerzack/glossary/models"
 )
 
 func setupTestRelationshipHandler(t *testing.T) (*RelationshipHandler, *database.DB) {
@@ -23,7 +23,11 @@ func setupTestRelationshipHandler(t *testing.T) (*RelationshipHandler, *database
 
 func TestGetAllRelationships(t *testing.T) {
 	handler, db := setupTestRelationshipHandler(t)
-	defer db.Close()
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Errorf("Failed to close database: %v", err)
+		}
+	}()
 
 	term1, _ := db.CreateTerm(&models.CreateTermRequest{
 		Name:       "Term 1",
@@ -67,7 +71,11 @@ func TestGetAllRelationships(t *testing.T) {
 
 func TestCreateRelationship(t *testing.T) {
 	handler, db := setupTestRelationshipHandler(t)
-	defer db.Close()
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Errorf("Failed to close database: %v", err)
+		}
+	}()
 
 	term1, _ := db.CreateTerm(&models.CreateTermRequest{
 		Name:       "Term 1",
@@ -110,7 +118,11 @@ func TestCreateRelationship(t *testing.T) {
 
 func TestCreateRelationshipInvalidRequest(t *testing.T) {
 	handler, db := setupTestRelationshipHandler(t)
-	defer db.Close()
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Errorf("Failed to close database: %v", err)
+		}
+	}()
 
 	reqBody := models.CreateRelationshipRequest{
 		SourceTermID: 1,
@@ -130,7 +142,11 @@ func TestCreateRelationshipInvalidRequest(t *testing.T) {
 
 func TestDeleteRelationship(t *testing.T) {
 	handler, db := setupTestRelationshipHandler(t)
-	defer db.Close()
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Errorf("Failed to close database: %v", err)
+		}
+	}()
 
 	term1, _ := db.CreateTerm(&models.CreateTermRequest{
 		Name:       "Term 1",
@@ -177,7 +193,11 @@ func TestDeleteRelationship(t *testing.T) {
 
 func TestGetGraph(t *testing.T) {
 	handler, db := setupTestRelationshipHandler(t)
-	defer db.Close()
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Errorf("Failed to close database: %v", err)
+		}
+	}()
 
 	term1, _ := db.CreateTerm(&models.CreateTermRequest{
 		Name:       "Term 1",

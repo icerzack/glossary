@@ -6,8 +6,8 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	"github.com/kuznetsovmaksim/glossary/database"
-	"github.com/kuznetsovmaksim/glossary/models"
+	"github.com/icerzack/glossary/database"
+	"github.com/icerzack/glossary/models"
 )
 
 type RelationshipHandler struct {

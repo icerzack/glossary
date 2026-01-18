@@ -1,3 +1,5 @@
+version: "2"
+
 linters-settings:
   dupl:
     threshold: 100
@@ -16,18 +18,14 @@ linters-settings:
       - style
   gocyclo:
     min-complexity: 15
-  goimports:
-    local-prefixes: github.com/kuznetsovmaksim/glossary
   golint:
     min-confidence: 0
-  gomnd:
-    settings:
-      mnd:
-        checks:
-          - argument
-          - case
-          - condition
-          - return
+  mnd:
+    checks:
+      - argument
+      - case
+      - condition
+      - return
   govet:
     check-shadowing: true
   lll:
@@ -44,18 +42,16 @@ linters:
     - dogsled
     - dupl
     - errcheck
-    - exportloopref
+    - copyloopvar
     - funlen
     - gochecknoinits
     - goconst
     - gocritic
     - gocyclo
-    - gofmt
-    - goimports
-    - gomnd
+    - mnd
     - goprintffuncname
     - gosec
-    - gosimple
+    - modernize
     - govet
     - ineffassign
     - lll
@@ -64,8 +60,6 @@ linters:
     - nolintlint
     - rowserrcheck
     - staticcheck
-    - stylecheck
-    - typecheck
     - unconvert
     - unparam
     - unused

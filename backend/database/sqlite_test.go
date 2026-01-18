@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/kuznetsovmaksim/glossary/models"
+	"github.com/icerzack/glossary/models"
 )
 
 func setupTestDB(t *testing.T) *DB {
@@ -22,14 +22,20 @@ func TestNewDB(t *testing.T) {
 	if db == nil {
 		t.Fatal("Expected database connection, got nil")
 	}
-	if err := db.Close(); err != nil {
-		t.Errorf("Failed to close database: %v", err)
-	}
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Errorf("Failed to close database: %v", err)
+		}
+	}()
 }
 
 func TestCreateTerm(t *testing.T) {
 	db := setupTestDB(t)
-	defer db.Close()
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Errorf("Failed to close database: %v", err)
+		}
+	}()
 
 	req := models.CreateTermRequest{
 		Name:       "Test Term",
@@ -55,7 +61,11 @@ func TestCreateTerm(t *testing.T) {
 
 func TestGetTermByID(t *testing.T) {
 	db := setupTestDB(t)
-	defer db.Close()
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Errorf("Failed to close database: %v", err)
+		}
+	}()
 
 	req := models.CreateTermRequest{
 		Name:       "Test Term",
@@ -84,7 +94,11 @@ func TestGetTermByID(t *testing.T) {
 
 func TestGetAllTerms(t *testing.T) {
 	db := setupTestDB(t)
-	defer db.Close()
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Errorf("Failed to close database: %v", err)
+		}
+	}()
 
 	terms := []models.CreateTermRequest{
 		{Name: "Term 1", Definition: "Definition 1", Category: "Category 1"},
@@ -111,7 +125,11 @@ func TestGetAllTerms(t *testing.T) {
 
 func TestSearchTerms(t *testing.T) {
 	db := setupTestDB(t)
-	defer db.Close()
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Errorf("Failed to close database: %v", err)
+		}
+	}()
 
 	terms := []models.CreateTermRequest{
 		{Name: "Docker", Definition: "Container platform", Category: "DevOps"},
@@ -147,7 +165,11 @@ func TestSearchTerms(t *testing.T) {
 
 func TestUpdateTerm(t *testing.T) {
 	db := setupTestDB(t)
-	defer db.Close()
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Errorf("Failed to close database: %v", err)
+		}
+	}()
 
 	req := models.CreateTermRequest{
 		Name:       "Original Name",
@@ -182,7 +204,11 @@ func TestUpdateTerm(t *testing.T) {
 
 func TestDeleteTerm(t *testing.T) {
 	db := setupTestDB(t)
-	defer db.Close()
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Errorf("Failed to close database: %v", err)
+		}
+	}()
 
 	req := models.CreateTermRequest{
 		Name:       "Term to Delete",
@@ -208,7 +234,11 @@ func TestDeleteTerm(t *testing.T) {
 
 func TestCreateRelationship(t *testing.T) {
 	db := setupTestDB(t)
-	defer db.Close()
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Errorf("Failed to close database: %v", err)
+		}
+	}()
 
 	term1, _ := db.CreateTerm(&models.CreateTermRequest{
 		Name:       "Term 1",
@@ -245,7 +275,11 @@ func TestCreateRelationship(t *testing.T) {
 
 func TestGetGraph(t *testing.T) {
 	db := setupTestDB(t)
-	defer db.Close()
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Errorf("Failed to close database: %v", err)
+		}
+	}()
 
 	term1, _ := db.CreateTerm(&models.CreateTermRequest{
 		Name:       "Term 1",
@@ -287,14 +321,24 @@ func TestSeedData(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Failed to create temp file: %v", err)
 	}
-	defer os.Remove(tmpFile.Name())
-	tmpFile.Close()
+	defer func() {
+		if err := os.Remove(tmpFile.Name()); err != nil {
+			t.Errorf("Failed to remove temp file: %v", err)
+		}
+	}()
+	if err := tmpFile.Close(); err != nil {
+		t.Fatalf("Failed to close temp file: %v", err)
+	}
 
 	db, err := NewDB(tmpFile.Name())
 	if err != nil {
 		t.Fatalf("Failed to create database: %v", err)
 	}
-	defer db.Close()
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Errorf("Failed to close database: %v", err)
+		}
+	}()
 
 	err = db.SeedData()
 	if err != nil {

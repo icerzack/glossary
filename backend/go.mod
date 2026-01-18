@@ -1,4 +1,4 @@
-module github.com/kuznetsovmaksim/glossary
+module github.com/icerzack/glossary
 
 go 1.21
 
