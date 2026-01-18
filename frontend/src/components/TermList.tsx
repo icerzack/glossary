@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import type { Term } from '../types';
+import { stringToColor } from '../utils/colorUtils';
 import './TermList.css';
 
 interface TermListProps {
   terms: Term[];
+  allTerms?: Term[];
   onTermClick: (term: Term) => void;
   onAddTerm: () => void;
   onSearch: (search: string, category: string) => void;
@@ -11,6 +13,7 @@ interface TermListProps {
 
 const TermList: React.FC<TermListProps> = ({
   terms,
+  allTerms,
   onTermClick,
   onAddTerm,
   onSearch,
@@ -18,7 +21,9 @@ const TermList: React.FC<TermListProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  const categories = Array.from(new Set(terms.map((t) => t.category))).sort();
+  const safeTerms = terms || [];
+  const categoriesSource = allTerms && allTerms.length > 0 ? allTerms : safeTerms;
+  const categories = Array.from(new Set(categoriesSource.map((t) => t.category))).sort();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -79,33 +84,45 @@ const TermList: React.FC<TermListProps> = ({
       </div>
 
       <div className="term-list-items">
-        {terms.length === 0 ? (
+        {safeTerms.length === 0 ? (
           <div className="no-terms">
             <p>No terms found</p>
           </div>
         ) : (
-          terms.map((term) => (
-            <div
-              key={term.id}
-              className="term-item"
-              onClick={() => onTermClick(term)}
-            >
-              <div className="term-item-header">
-                <h3>{term.name}</h3>
-                <span className="term-category">{term.category}</span>
+          safeTerms.map((term) => {
+            const categoryColor = stringToColor(term.category);
+            return (
+              <div
+                key={term.id}
+                className="term-item"
+                onClick={() => onTermClick(term)}
+                style={{ borderLeftColor: categoryColor }}
+              >
+                <div className="term-item-header">
+                  <h3>{term.name}</h3>
+                  <span
+                    className="term-category"
+                    style={{
+                      backgroundColor: categoryColor,
+                      color: '#ffffff',
+                    }}
+                  >
+                    {term.category}
+                  </span>
+                </div>
+                <p className="term-definition">
+                  {term.definition.length > 150
+                    ? `${term.definition.substring(0, 150)}...`
+                    : term.definition}
+                </p>
               </div>
-              <p className="term-definition">
-                {term.definition.length > 150
-                  ? `${term.definition.substring(0, 150)}...`
-                  : term.definition}
-              </p>
-            </div>
-          ))
+            );
+          })
         )}
       </div>
 
       <div className="term-list-footer">
-        <p>{terms.length} term(s) found</p>
+        <p>{safeTerms.length} term(s) found</p>
       </div>
     </div>
   );

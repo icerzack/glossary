@@ -7,6 +7,7 @@ import type { Term, Graph, CreateTermRequest, UpdateTermRequest } from './types'
 import './App.css';
 
 function App() {
+  const [allTerms, setAllTerms] = useState<Term[]>([]);
   const [terms, setTerms] = useState<Term[]>([]);
   const [graph, setGraph] = useState<Graph>({ nodes: [], edges: [] });
   const [selectedTerm, setSelectedTerm] = useState<Term | null>(null);
@@ -23,6 +24,7 @@ function App() {
         termsApi.getAll(),
         graphApi.get(),
       ]);
+      setAllTerms(termsData);
       setTerms(termsData);
       setGraph(graphData);
     } catch (err) {
@@ -134,14 +136,15 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>📚 Glossary - Semantic Graph</h1>
-        <p>Explore technical terms and their relationships</p>
+        <h1>Глоссарий терминов</h1>
+        <p>Кузнецов М. А. P4211</p>
       </header>
 
       <div className="app-content">
         <aside className="app-sidebar">
           <TermList
             terms={terms}
+            allTerms={allTerms}
             onTermClick={handleTermClick}
             onAddTerm={handleAddTerm}
             onSearch={handleSearch}

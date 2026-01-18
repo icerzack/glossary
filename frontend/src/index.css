@@ -23,7 +23,6 @@ code {
   height: 100vh;
 }
 
-/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -42,7 +41,6 @@ code {
   background: #555;
 }
 
-/* Button styles */
 button {
   cursor: pointer;
   border: none;
@@ -82,7 +80,6 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Input styles */
 input,
 textarea,
 select {
@@ -106,7 +103,6 @@ textarea {
   min-height: 80px;
 }
 
-/* Form styles */
 .form-group {
   margin-bottom: 16px;
 }
@@ -125,7 +121,6 @@ textarea {
   width: 100%;
 }
 
-/* Modal overlay */
 .modal-overlay {
   position: fixed;
   top: 0;

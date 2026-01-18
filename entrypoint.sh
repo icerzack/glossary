@@ -11,8 +11,10 @@ echo "Waiting for backend to start..."
 MAX_ATTEMPTS=30
 ATTEMPT=0
 
+BACKEND_PORT=${PORT:-8080}
+
 while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
-  if wget --spider --quiet http://localhost:8080/health 2>/dev/null; then
+  if wget --spider --quiet "http://localhost:${BACKEND_PORT}/health" 2>/dev/null; then
     echo "Backend is ready!"
     break
   fi

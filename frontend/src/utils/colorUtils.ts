@@ -6,8 +6,8 @@ export const stringToColor = (str: string): string => {
   }
 
   const hue = Math.abs(hash % 360);
-  const saturation = 65 + (Math.abs(hash) % 20); // 65-85%
-  const lightness = 45 + (Math.abs(hash >> 8) % 15); // 45-60%
+  const saturation = 60 + (Math.abs(hash) % 20);
+  const lightness = 45 + (Math.abs(hash >> 8) % 20);
 
   return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 };
