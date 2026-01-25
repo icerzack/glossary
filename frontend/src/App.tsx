@@ -137,7 +137,7 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1>Глоссарий терминов</h1>
-        <p>Кузнецов М. А. P4211</p>
+        <p>Кузнецов М. А. P4209</p>
       </header>
 
       <div className="app-content">
