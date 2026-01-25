@@ -20,7 +20,7 @@
   {
     "source": "TypeScript",
     "target": "JavaScript",
-    "type": "extends",
+    "type": "related_to",
     "description": "TypeScript является надмножеством JavaScript"
   },
   {
@@ -32,13 +32,13 @@
   {
     "source": "React",
     "target": "TypeScript",
-    "type": "supports",
+    "type": "uses",
     "description": "React поддерживает использование TypeScript"
   },
   {
     "source": "React",
     "target": "Front‑end",
-    "type": "used_for",
+    "type": "uses",
     "description": "React используется для разработки front-end"
   },
   {
@@ -56,7 +56,7 @@
   {
     "source": "React",
     "target": "SPA",
-    "type": "used_for",
+    "type": "uses",
     "description": "React часто используется для создания SPA"
   },
   {
@@ -68,7 +68,7 @@
   {
     "source": "Back‑end",
     "target": "API",
-    "type": "provides",
+    "type": "uses",
     "description": "Back-end предоставляет API"
   },
   {
@@ -116,31 +116,31 @@
   {
     "source": "Web‑приложение",
     "target": "Docker",
-    "type": "deployed_with",
+    "type": "uses",
     "description": "Веб-приложение может быть развернуто с помощью Docker"
   },
   {
     "source": "NGINX",
     "target": "Web‑приложение",
-    "type": "serves",
+    "type": "uses",
     "description": "NGINX обслуживает веб-приложение"
   },
   {
     "source": "NGINX",
     "target": "Front‑end",
-    "type": "serves",
+    "type": "uses",
     "description": "NGINX отдает клиентское приложение (front-end)"
   },
   {
     "source": "NGINX",
     "target": "Back‑end",
-    "type": "proxies_to",
+    "type": "uses",
     "description": "NGINX проксирует запросы к back-end"
   },
   {
     "source": "Healthcheck",
     "target": "Back‑end",
-    "type": "monitors",
+    "type": "uses",
     "description": "Healthcheck проверяет работоспособность back-end"
   },
   {
