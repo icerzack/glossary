@@ -1,99 +1,182 @@
 [
   {
-    "source": "REST",
-    "target": "API",
-    "type": "implements",
-    "description": "REST - это тип архитектуры API"
+    "source": "Front‑end",
+    "target": "Web‑приложение",
+    "type": "part_of",
+    "description": "Front-end является частью веб-приложения"
   },
   {
-    "source": "REST",
-    "target": "HTTP",
-    "type": "depends_on",
-    "description": "REST API обычно используют протокол HTTP"
+    "source": "Back‑end",
+    "target": "Web‑приложение",
+    "type": "part_of",
+    "description": "Back-end является частью веб-приложения"
+  },
+  {
+    "source": "Front‑end",
+    "target": "JavaScript",
+    "type": "uses",
+    "description": "Front-end использует JavaScript для создания интерактивности"
+  },
+  {
+    "source": "TypeScript",
+    "target": "JavaScript",
+    "type": "extends",
+    "description": "TypeScript является надмножеством JavaScript"
+  },
+  {
+    "source": "React",
+    "target": "JavaScript",
+    "type": "uses",
+    "description": "React основан на JavaScript"
+  },
+  {
+    "source": "React",
+    "target": "TypeScript",
+    "type": "supports",
+    "description": "React поддерживает использование TypeScript"
+  },
+  {
+    "source": "React",
+    "target": "Front‑end",
+    "type": "used_for",
+    "description": "React используется для разработки front-end"
+  },
+  {
+    "source": "SPA",
+    "target": "Web‑приложение",
+    "type": "implements",
+    "description": "SPA - это подход к созданию веб-приложений"
+  },
+  {
+    "source": "SPA",
+    "target": "Front‑end",
+    "type": "uses",
+    "description": "SPA реализуется на стороне front-end"
+  },
+  {
+    "source": "React",
+    "target": "SPA",
+    "type": "used_for",
+    "description": "React часто используется для создания SPA"
+  },
+  {
+    "source": "Back‑end",
+    "target": "Go",
+    "type": "uses",
+    "description": "Back-end может быть реализован на Go"
+  },
+  {
+    "source": "Back‑end",
+    "target": "API",
+    "type": "provides",
+    "description": "Back-end предоставляет API"
   },
   {
     "source": "API",
     "target": "HTTP",
     "type": "uses",
-    "description": "API часто обмениваются данными через HTTP"
+    "description": "API использует протокол HTTP"
   },
   {
     "source": "API",
     "target": "JSON",
     "type": "uses",
-    "description": "API обычно используют JSON для обмена данными"
+    "description": "API использует JSON для обмена данными"
   },
   {
-    "source": "Database",
-    "target": "SQL",
+    "source": "Front‑end",
+    "target": "API",
     "type": "uses",
-    "description": "Реляционные базы данных используют SQL для запросов"
+    "description": "Front-end взаимодействует с back-end через API"
   },
   {
-    "source": "Docker",
-    "target": "Container",
+    "source": "Back‑end",
+    "target": "База данных",
+    "type": "uses",
+    "description": "Back-end использует базу данных для хранения данных"
+  },
+  {
+    "source": "SQLite",
+    "target": "База данных",
     "type": "implements",
-    "description": "Docker - это платформа контейнеров"
+    "description": "SQLite - это вариант базы данных"
   },
   {
-    "source": "Microservices",
-    "target": "API",
+    "source": "Back‑end",
+    "target": "SQLite",
     "type": "uses",
-    "description": "Микросервисы взаимодействуют через API"
+    "description": "Back-end может использовать SQLite для хранения данных"
   },
   {
-    "source": "Microservices",
-    "target": "Container",
+    "source": "Docker Compose",
+    "target": "Docker",
     "type": "uses",
-    "description": "Микросервисы часто развертываются в контейнерах"
+    "description": "Docker Compose использует Docker для управления контейнерами"
+  },
+  {
+    "source": "Web‑приложение",
+    "target": "Docker",
+    "type": "deployed_with",
+    "description": "Веб-приложение может быть развернуто с помощью Docker"
+  },
+  {
+    "source": "NGINX",
+    "target": "Web‑приложение",
+    "type": "serves",
+    "description": "NGINX обслуживает веб-приложение"
+  },
+  {
+    "source": "NGINX",
+    "target": "Front‑end",
+    "type": "serves",
+    "description": "NGINX отдает клиентское приложение (front-end)"
+  },
+  {
+    "source": "NGINX",
+    "target": "Back‑end",
+    "type": "proxies_to",
+    "description": "NGINX проксирует запросы к back-end"
+  },
+  {
+    "source": "Healthcheck",
+    "target": "Back‑end",
+    "type": "monitors",
+    "description": "Healthcheck проверяет работоспособность back-end"
+  },
+  {
+    "source": "Healthcheck",
+    "target": "HTTP",
+    "type": "uses",
+    "description": "Healthcheck использует HTTP для проверки"
+  },
+  {
+    "source": "CI/CD",
+    "target": "Docker",
+    "type": "uses",
+    "description": "CI/CD использует Docker для сборки и развертывания"
+  },
+  {
+    "source": "CI/CD",
+    "target": "Docker Compose",
+    "type": "uses",
+    "description": "CI/CD может использовать Docker Compose для оркестрации"
   },
   {
     "source": "OpenAPI",
-    "target": "REST",
+    "target": "API",
     "type": "documents",
-    "description": "OpenAPI используется для документирования REST API"
+    "description": "OpenAPI используется для документирования API"
   },
   {
     "source": "OpenAPI",
-    "target": "API",
+    "target": "HTTP",
     "type": "documents",
-    "description": "OpenAPI предоставляет документацию API"
+    "description": "OpenAPI документирует HTTP API"
   },
   {
-    "source": "Endpoint",
-    "target": "API",
-    "type": "part_of",
-    "description": "Эндпоинты являются частью API"
-  },
-  {
-    "source": "CRUD",
-    "target": "Database",
-    "type": "related_to",
-    "description": "CRUD операции выполняются над базами данных"
-  },
-  {
-    "source": "CRUD",
-    "target": "API",
-    "type": "related_to",
-    "description": "API часто реализуют CRUD операции"
-  },
-  {
-    "source": "SSO",
-    "target": "SAML",
+    "source": "Back‑end",
+    "target": "OpenAPI",
     "type": "uses",
-    "description": "SSO часто реализуется с использованием SAML"
-  },
-  {
-    "source": "SSO",
-    "target": "OAuth",
-    "type": "uses",
-    "description": "SSO может быть реализован с помощью OAuth"
-  },
-  {
-    "source": "SAML",
-    "target": "OAuth",
-    "type": "related_to",
-    "description": "SAML и OAuth - это альтернативные протоколы для аутентификации и авторизации"
+    "description": "Back-end может использовать OpenAPI для описания API"
   }
 ]
-

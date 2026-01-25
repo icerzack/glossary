@@ -1,108 +1,135 @@
 [
   {
-    "name": "API",
-    "definition": "Интерфейс прикладного программирования - набор правил и протоколов, позволяющий различным программным приложениям взаимодействовать друг с другом",
+    "name": "Web‑приложение",
+    "definition": "Программа с определенным набором функций, в которой в качестве клиента используется браузер, а взаимодействие с приложением происходит через сеть",
     "category": "Software Architecture",
-    "source": "Mozilla Developer Network",
+    "source": "TechTarget",
+    "source_url": "https://www.techtarget.com/searchsoftwarequality/definition/Web-application-Web-app"
+  },
+  {
+    "name": "Front‑end",
+    "definition": "Часть веб‑приложения, отвечающая за отображение контента и взаимодействие пользователя с интерфейсом в браузере",
+    "category": "Software Development",
+    "source": "Webflow",
+    "source_url": "https://webflow.com/glossary/front-end"
+  },
+  {
+    "name": "JavaScript",
+    "definition": "Высокоуровневый интерпретируемый язык программирования, широко применяемый для создания динамических веб‑страниц и веб‑приложений",
+    "category": "Programming Language",
+    "source": "MDN Web Docs",
+    "source_url": "https://developer.mozilla.org/en-US/docs/Glossary/JavaScript"
+  },
+  {
+    "name": "TypeScript",
+    "definition": "Строго типизированное надмножество JavaScript, которое компилируется в обычный JavaScript и добавляет статическую типизацию для улучшения безопасности кода и поддержки инструментов разработки",
+    "category": "Programming Language",
+    "source": "MDN Web Docs",
+    "source_url": "https://developer.mozilla.org/en-US/docs/Glossary/TypeScript"
+  },
+  {
+    "name": "React",
+    "definition": "JavaScript‑библиотека для создания пользовательских интерфейсов на основе компонентного подхода, при котором интерфейс обновляется при изменении данных",
+    "category": "Frontend Framework",
+    "source": "React (Legacy Docs)",
+    "source_url": "https://legacy.reactjs.org/docs/glossary.html"
+  },
+  {
+    "name": "SPA",
+    "definition": "Single Page Application – подход к созданию веб‑приложений, при котором основная часть взаимодействия происходит в рамках одной веб‑страницы, а переходы между разделами реализуются средствами клиентской логики",
+    "category": "Software Architecture",
+    "source": "MDN Web Docs",
+    "source_url": "https://developer.mozilla.org/en-US/docs/Glossary/SPA"
+  },
+  {
+    "name": "Back‑end",
+    "definition": "Серверная часть веб‑приложения, обеспечивающая обработку запросов, выполнение бизнес‑логики и доступ к данным",
+    "category": "Software Architecture",
+    "source": "MDN Web Docs",
+    "source_url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/First_steps/Introduction"
+  },
+  {
+    "name": "Go",
+    "definition": "Компилируемый статически типизированный язык программирования, разработанный Google для создания высокопроизводительных серверных приложений и облачных сервисов с простой моделью параллелизма через горутины",
+    "category": "Programming Language",
+    "source": "The Go Programming Language",
+    "source_url": "https://go.dev/doc/"
+  },
+  {
+    "name": "API",
+    "definition": "Application Programming Interface – интерфейс взаимодействия компонентов системы, который определяет набор доступных операций и формат обмена данными между клиентом и сервером",
+    "category": "Software Architecture",
+    "source": "MDN Web Docs",
     "source_url": "https://developer.mozilla.org/en-US/docs/Glossary/API"
   },
   {
-    "name": "REST",
-    "definition": "Representational State Transfer - архитектурный стиль для проектирования сетевых приложений, использующий безсостоятельное взаимодействие и стандартные HTTP методы",
-    "category": "Software Architecture",
-    "source": "Roy Fielding's Dissertation",
-    "source_url": "https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm"
-  },
-  {
     "name": "HTTP",
-    "definition": "Протокол передачи гипертекста - основа передачи данных во Всемирной паутине",
+    "definition": "Протокол прикладного уровня, используемый для передачи запросов и ответов между клиентом и сервером веб‑приложения",
     "category": "Network Protocol",
-    "source": "IETF RFC 2616",
-    "source_url": "https://tools.ietf.org/html/rfc2616"
-  },
-  {
-    "name": "Database",
-    "definition": "Организованная коллекция структурированных данных, хранящаяся в электронном виде в компьютерной системе, обычно управляемая системой управления базами данных (СУБД)",
-    "category": "Data Storage",
-    "source": "Oracle Documentation",
-    "source_url": "https://www.oracle.com/database/what-is-database/"
-  },
-  {
-    "name": "SQL",
-    "definition": "Язык структурированных запросов - стандартный язык для хранения, манипулирования и извлечения данных в реляционных базах данных",
-    "category": "Query Language",
-    "source": "ISO/IEC 9075",
-    "source_url": "https://www.iso.org/standard/63555.html"
+    "source": "MDN Web Docs",
+    "source_url": "https://github.com/mdn/content/blob/main/files/en-us/glossary/http/index.md?plain=1"
   },
   {
     "name": "JSON",
-    "definition": "JavaScript Object Notation - легковесный формат обмена данными, который легко читать и писать людям, и легко анализировать и генерировать машинам",
+    "definition": "Текстовый формат обмена данными",
     "category": "Data Format",
-    "source": "ECMA-404",
-    "source_url": "https://www.json.org/"
+    "source": "MDN Web Docs",
+    "source_url": "https://developer.mozilla.org/en-US/docs/Glossary/JSON"
+  },
+  {
+    "name": "База данных",
+    "definition": "Организованное хранилище данных приложения, предназначенное для долговременного сохранения и последующего чтения/изменения информации",
+    "category": "Data Storage",
+    "source": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/Database"
+  },
+  {
+    "name": "SQLite",
+    "definition": "Вариант хранения данных приложения в виде файла базы данных, что удобно для компактных учебных/проектных решений и локального развертывания",
+    "category": "Data Storage",
+    "source": "SQLite",
+    "source_url": "https://www.sqlite.org/whentouse.html"
   },
   {
     "name": "Docker",
-    "definition": "Платформа для разработки, доставки и запуска приложений в контейнерах - изолированных средах, которые упаковывают код и все его зависимости",
+    "definition": "Средство контейнеризации, позволяющее упаковать приложение и его окружение в контейнер для воспроизводимого запуска на разных системах",
     "category": "DevOps",
-    "source": "Docker Documentation",
-    "source_url": "https://docs.docker.com/"
+    "source": "Docker",
+    "source_url": "https://www.docker.com/resources/what-container/"
   },
   {
-    "name": "Microservices",
-    "definition": "Архитектурный стиль, который структурирует приложение как коллекцию слабо связанных, независимо развертываемых сервисов",
-    "category": "Software Architecture",
-    "source": "Martin Fowler",
-    "source_url": "https://martinfowler.com/articles/microservices.html"
+    "name": "Docker Compose",
+    "definition": "Инструмент описания и запуска контейнеров приложения через единый конфигурационный файл, задающий параметры сборки, переменные окружения, порты и тома",
+    "category": "DevOps",
+    "source": "Docker Docs",
+    "source_url": "https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-docker-compose/"
   },
   {
-    "name": "Container",
-    "definition": "Стандартная единица программного обеспечения, которая упаковывает код и все его зависимости, чтобы приложение работало быстро и надежно в различных вычислительных средах",
+    "name": "NGINX",
+    "definition": "Веб‑сервер, используемый для отдачи клиентского приложения и проксирования запросов к серверной части",
+    "category": "Web Server",
+    "source": "NGINX Documentation",
+    "source_url": "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/"
+  },
+  {
+    "name": "Healthcheck",
+    "definition": "Механизм проверки работоспособности сервиса по заранее определенному правилу, например через HTTP‑запрос к специальному endpoint",
     "category": "DevOps",
-    "source": "Docker Documentation",
-    "source_url": "https://www.docker.com/resources/what-container"
+    "source": "Docker Docs",
+    "source_url": "https://docs.docker.com/reference/compose-file/services/#healthcheck"
+  },
+  {
+    "name": "CI/CD",
+    "definition": "Набор практик автоматизации сборки, проверки и развертывания проекта, которые в репозитории могут быть реализованы через workflow‑файлы",
+    "category": "DevOps",
+    "source": "Red Hat",
+    "source_url": "https://www.redhat.com/en/topics/devops/what-is-ci-cd"
   },
   {
     "name": "OpenAPI",
-    "definition": "Спецификация для создания API, которая определяет стандартный, независимый от языка интерфейс для RESTful API",
+    "definition": "Swagger – спецификация описания HTTP API, позволяющая формально зафиксировать доступные endpoints, параметры и форматы ответов",
     "category": "API Specification",
     "source": "OpenAPI Initiative",
-    "source_url": "https://www.openapis.org/"
-  },
-  {
-    "name": "CRUD",
-    "definition": "Create, Read, Update, Delete - четыре основные операции постоянного хранилища",
-    "category": "Software Development",
-    "source": "Software Engineering Principles",
-    "source_url": "https://en.wikipedia.org/wiki/Create,_read,_update_and_delete"
-  },
-  {
-    "name": "Endpoint",
-    "definition": "Конкретный URL, где можно получить доступ к API и выполнить конкретную функцию",
-    "category": "API",
-    "source": "API Design Best Practices",
-    "source_url": "https://swagger.io/resources/articles/best-practices-in-api-design/"
-  },
-  {
-    "name": "SSO",
-    "definition": "Единый вход (Single Sign-On) - механизм аутентификации, позволяющий пользователю войти в систему один раз и получить доступ к нескольким приложениям без повторного ввода учетных данных",
-    "category": "Security",
-    "source": "OAuth 2.0 Security Best Practices",
-    "source_url": "https://oauth.net/2/"
-  },
-  {
-    "name": "SAML",
-    "definition": "Язык разметки утверждений безопасности (Security Assertion Markup Language) - стандарт на основе XML для обмена данными аутентификации и авторизации между сторонами, часто используемый для реализации единого входа",
-    "category": "Security",
-    "source": "OASIS SAML 2.0",
-    "source_url": "https://www.oasis-open.org/standards#samlv2.0"
-  },
-  {
-    "name": "OAuth",
-    "definition": "Открытый стандарт авторизации, который предоставляет приложениям ограниченный доступ к пользовательским данным без раскрытия паролей, часто используется вместе с единым входом",
-    "category": "Security",
-    "source": "IETF RFC 6749",
-    "source_url": "https://tools.ietf.org/html/rfc6749"
+    "source_url": "https://spec.openapis.org/oas/v3.1.0.html"
   }
 ]
-
