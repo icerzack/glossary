@@ -3,79 +3,97 @@
     "source": "REST",
     "target": "API",
     "type": "implements",
-    "description": "REST is a type of API architecture"
+    "description": "REST - это тип архитектуры API"
   },
   {
     "source": "REST",
     "target": "HTTP",
     "type": "depends_on",
-    "description": "REST APIs typically use HTTP protocol"
+    "description": "REST API обычно используют протокол HTTP"
   },
   {
     "source": "API",
     "target": "HTTP",
     "type": "uses",
-    "description": "APIs often communicate over HTTP"
+    "description": "API часто обмениваются данными через HTTP"
   },
   {
     "source": "API",
     "target": "JSON",
     "type": "uses",
-    "description": "APIs commonly use JSON for data exchange"
+    "description": "API обычно используют JSON для обмена данными"
   },
   {
     "source": "Database",
     "target": "SQL",
     "type": "uses",
-    "description": "Relational databases use SQL for queries"
+    "description": "Реляционные базы данных используют SQL для запросов"
   },
   {
     "source": "Docker",
     "target": "Container",
     "type": "implements",
-    "description": "Docker is a container platform"
+    "description": "Docker - это платформа контейнеров"
   },
   {
     "source": "Microservices",
     "target": "API",
     "type": "uses",
-    "description": "Microservices communicate via APIs"
+    "description": "Микросервисы взаимодействуют через API"
   },
   {
     "source": "Microservices",
     "target": "Container",
     "type": "uses",
-    "description": "Microservices are often deployed in containers"
+    "description": "Микросервисы часто развертываются в контейнерах"
   },
   {
     "source": "OpenAPI",
     "target": "REST",
     "type": "documents",
-    "description": "OpenAPI is used to document REST APIs"
+    "description": "OpenAPI используется для документирования REST API"
   },
   {
     "source": "OpenAPI",
     "target": "API",
     "type": "documents",
-    "description": "OpenAPI provides API documentation"
+    "description": "OpenAPI предоставляет документацию API"
   },
   {
     "source": "Endpoint",
     "target": "API",
     "type": "part_of",
-    "description": "Endpoints are parts of an API"
+    "description": "Эндпоинты являются частью API"
   },
   {
     "source": "CRUD",
     "target": "Database",
     "type": "related_to",
-    "description": "CRUD operations are performed on databases"
+    "description": "CRUD операции выполняются над базами данных"
   },
   {
     "source": "CRUD",
     "target": "API",
     "type": "related_to",
-    "description": "APIs often implement CRUD operations"
+    "description": "API часто реализуют CRUD операции"
+  },
+  {
+    "source": "SSO",
+    "target": "SAML",
+    "type": "uses",
+    "description": "SSO часто реализуется с использованием SAML"
+  },
+  {
+    "source": "SSO",
+    "target": "OAuth",
+    "type": "uses",
+    "description": "SSO может быть реализован с помощью OAuth"
+  },
+  {
+    "source": "SAML",
+    "target": "OAuth",
+    "type": "related_to",
+    "description": "SAML и OAuth - это альтернативные протоколы для аутентификации и авторизации"
   }
 ]
 

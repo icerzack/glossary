@@ -1,87 +1,108 @@
 [
   {
     "name": "API",
-    "definition": "Application Programming Interface - a set of rules and protocols that allows different software applications to communicate with each other",
+    "definition": "Интерфейс прикладного программирования - набор правил и протоколов, позволяющий различным программным приложениям взаимодействовать друг с другом",
     "category": "Software Architecture",
     "source": "Mozilla Developer Network",
     "source_url": "https://developer.mozilla.org/en-US/docs/Glossary/API"
   },
   {
     "name": "REST",
-    "definition": "Representational State Transfer - an architectural style for designing networked applications using stateless communication and standard HTTP methods",
+    "definition": "Representational State Transfer - архитектурный стиль для проектирования сетевых приложений, использующий безсостоятельное взаимодействие и стандартные HTTP методы",
     "category": "Software Architecture",
     "source": "Roy Fielding's Dissertation",
     "source_url": "https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm"
   },
   {
     "name": "HTTP",
-    "definition": "Hypertext Transfer Protocol - the foundation of data communication for the World Wide Web",
+    "definition": "Протокол передачи гипертекста - основа передачи данных во Всемирной паутине",
     "category": "Network Protocol",
     "source": "IETF RFC 2616",
     "source_url": "https://tools.ietf.org/html/rfc2616"
   },
   {
     "name": "Database",
-    "definition": "An organized collection of structured data stored electronically in a computer system, typically controlled by a database management system (DBMS)",
+    "definition": "Организованная коллекция структурированных данных, хранящаяся в электронном виде в компьютерной системе, обычно управляемая системой управления базами данных (СУБД)",
     "category": "Data Storage",
     "source": "Oracle Documentation",
     "source_url": "https://www.oracle.com/database/what-is-database/"
   },
   {
     "name": "SQL",
-    "definition": "Structured Query Language - a standard language for storing, manipulating and retrieving data in relational databases",
+    "definition": "Язык структурированных запросов - стандартный язык для хранения, манипулирования и извлечения данных в реляционных базах данных",
     "category": "Query Language",
     "source": "ISO/IEC 9075",
     "source_url": "https://www.iso.org/standard/63555.html"
   },
   {
     "name": "JSON",
-    "definition": "JavaScript Object Notation - a lightweight data-interchange format that is easy for humans to read and write and easy for machines to parse and generate",
+    "definition": "JavaScript Object Notation - легковесный формат обмена данными, который легко читать и писать людям, и легко анализировать и генерировать машинам",
     "category": "Data Format",
     "source": "ECMA-404",
     "source_url": "https://www.json.org/"
   },
   {
     "name": "Docker",
-    "definition": "A platform for developing, shipping, and running applications in containers - isolated environments that package code and all its dependencies",
+    "definition": "Платформа для разработки, доставки и запуска приложений в контейнерах - изолированных средах, которые упаковывают код и все его зависимости",
     "category": "DevOps",
     "source": "Docker Documentation",
     "source_url": "https://docs.docker.com/"
   },
   {
     "name": "Microservices",
-    "definition": "An architectural style that structures an application as a collection of loosely coupled, independently deployable services",
+    "definition": "Архитектурный стиль, который структурирует приложение как коллекцию слабо связанных, независимо развертываемых сервисов",
     "category": "Software Architecture",
     "source": "Martin Fowler",
     "source_url": "https://martinfowler.com/articles/microservices.html"
   },
   {
     "name": "Container",
-    "definition": "A standard unit of software that packages code and all its dependencies so the application runs quickly and reliably across different computing environments",
+    "definition": "Стандартная единица программного обеспечения, которая упаковывает код и все его зависимости, чтобы приложение работало быстро и надежно в различных вычислительных средах",
     "category": "DevOps",
     "source": "Docker Documentation",
     "source_url": "https://www.docker.com/resources/what-container"
   },
   {
     "name": "OpenAPI",
-    "definition": "A specification for building APIs that defines a standard, language-agnostic interface to RESTful APIs",
+    "definition": "Спецификация для создания API, которая определяет стандартный, независимый от языка интерфейс для RESTful API",
     "category": "API Specification",
     "source": "OpenAPI Initiative",
     "source_url": "https://www.openapis.org/"
   },
   {
     "name": "CRUD",
-    "definition": "Create, Read, Update, Delete - the four basic operations of persistent storage",
+    "definition": "Create, Read, Update, Delete - четыре основные операции постоянного хранилища",
     "category": "Software Development",
     "source": "Software Engineering Principles",
     "source_url": "https://en.wikipedia.org/wiki/Create,_read,_update_and_delete"
   },
   {
     "name": "Endpoint",
-    "definition": "A specific URL where an API can be accessed and a specific function can be executed",
+    "definition": "Конкретный URL, где можно получить доступ к API и выполнить конкретную функцию",
     "category": "API",
     "source": "API Design Best Practices",
     "source_url": "https://swagger.io/resources/articles/best-practices-in-api-design/"
+  },
+  {
+    "name": "SSO",
+    "definition": "Единый вход (Single Sign-On) - механизм аутентификации, позволяющий пользователю войти в систему один раз и получить доступ к нескольким приложениям без повторного ввода учетных данных",
+    "category": "Security",
+    "source": "OAuth 2.0 Security Best Practices",
+    "source_url": "https://oauth.net/2/"
+  },
+  {
+    "name": "SAML",
+    "definition": "Язык разметки утверждений безопасности (Security Assertion Markup Language) - стандарт на основе XML для обмена данными аутентификации и авторизации между сторонами, часто используемый для реализации единого входа",
+    "category": "Security",
+    "source": "OASIS SAML 2.0",
+    "source_url": "https://www.oasis-open.org/standards#samlv2.0"
+  },
+  {
+    "name": "OAuth",
+    "definition": "Открытый стандарт авторизации, который предоставляет приложениям ограниченный доступ к пользовательским данным без раскрытия паролей, часто используется вместе с единым входом",
+    "category": "Security",
+    "source": "IETF RFC 6749",
+    "source_url": "https://tools.ietf.org/html/rfc6749"
   }
 ]
 
