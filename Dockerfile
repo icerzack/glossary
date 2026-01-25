@@ -10,6 +10,10 @@ RUN --mount=type=cache,target=/go/pkg/mod \
     go mod download && \
     go install github.com/swaggo/swag/cmd/swag@latest
 
+COPY backend/database/seed/ ./database/seed/
+
+RUN ls -la database/seed/ && cat database/seed/terms.json | head -3 || (echo "ERROR: Seed files not found!" && exit 1)
+
 COPY backend/ ./
 
 RUN swag init -g main.go --output docs
