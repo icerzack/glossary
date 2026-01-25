@@ -1,0 +1,91 @@
+version: "2"
+
+linters:
+  disable-all: true
+  enable:
+    - bodyclose
+    - dogsled
+    - dupl
+    - errcheck
+    - copyloopvar
+    - funlen
+    - gochecknoinits
+    - goconst
+    - gocritic
+    - gocyclo
+    - mnd
+    - goprintffuncname
+    - gosec
+    - modernize
+    - govet
+    - ineffassign
+    - lll
+    - misspell
+    - nakedret
+    - nolintlint
+    - rowserrcheck
+    - staticcheck
+    - unconvert
+    - unparam
+    - unused
+    - whitespace
+  settings:
+    dupl:
+      threshold: 100
+    funlen:
+      lines: 200
+      statements: 80
+    goconst:
+      min-len: 2
+      min-occurrences: 2
+    gocritic:
+      enabled-tags:
+        - diagnostic
+        - experimental
+        - opinionated
+        - performance
+        - style
+    gocyclo:
+      min-complexity: 15
+    golint:
+      min-confidence: 0
+    mnd:
+      checks:
+        - argument
+        - case
+        - condition
+        - return
+    govet:
+      check-shadowing: true
+    lll:
+      line-length: 180
+    maligned:
+      suggest-new: true
+    misspell:
+      locale: US
+  exclusions:
+    rules:
+      - path: _test\.go
+        linters:
+          - mnd
+          - funlen
+          - gocyclo
+          - dupl
+      - path: (^|/)docs/.*\.go$
+        linters:
+          - gochecknoinits
+    paths:
+      - docs/
+
+issues:
+  exclude-dirs:
+    - vendor
+    - docs
+  exclude-rules:
+    - path: (^|/)docs/.*\.go$
+      linters:
+        - gochecknoinits
+
+run:
+  timeout: 5m
+
