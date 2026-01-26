@@ -226,6 +226,13 @@
   transform: translateX(2px);
 }
 
+.mindmap-dialog-option.selected {
+  background: #e3f2fd;
+  border-color: #2196F3;
+  border-left-width: 6px;
+  font-weight: 600;
+}
+
 .mindmap-dialog-option-color {
   width: 24px;
   height: 3px;

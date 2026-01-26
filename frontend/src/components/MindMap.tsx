@@ -19,6 +19,7 @@ import './MindMap.css';
 interface MindMapProps {
   graph: Graph;
   onNodeClick: (nodeId: number) => void;
+  onGraphUpdate?: () => void;
 }
 
 const getNodeSize = (name: string): { width: number; height: number } => {
@@ -203,49 +204,37 @@ const convertGraphToFlow = (graph: Graph): { nodes: Node[]; edges: Edge[] } => {
     };
   });
 
-  const edgeCounts: Record<string, number> = {};
-  const edgeIndices: Record<string, number> = {};
-  
-  graph.edges.forEach((edge) => {
-    const key = `${edge.source}-${edge.target}`;
-    edgeCounts[key] = (edgeCounts[key] || 0) + 1;
-  });
-
   const edges: Edge[] = graph.edges.map((edge) => {
     const edgeColor = getEdgeColor(edge.type);
-    const key = `${edge.source}-${edge.target}`;
-    const count = edgeCounts[key] || 1;
-    const index = edgeIndices[key] || 0;
-    edgeIndices[key] = index + 1;
-
-    const edgeType = count > 1 ? 'bezier' : 'smoothstep';
-    const curvature = count > 1 ? (index - (count - 1) / 2) * 0.8 : undefined;
 
     return {
       id: edge.id.toString(),
       source: edge.source.toString(),
       target: edge.target.toString(),
-      type: edgeType,
+      type: 'straight',
       animated: false,
-      label: (
-        <span className="mindmap-edge-label">{edge.type.replace('_', ' ')}</span>
-      ),
+      label: edge.type.replace('_', ' '),
+      data: {
+        relationshipType: edge.type,
+        relationshipId: edge.id,
+      },
+      labelStyle: {
+        fontSize: '9px',
+        fontWeight: '600',
+        fill: '#333333',
+      },
+      labelBgStyle: {
+        fill: 'rgba(255, 255, 255, 0.95)',
+        fillOpacity: 0.95,
+        stroke: edgeColor,
+        strokeWidth: 1,
+        rx: 4,
+        ry: 4,
+      },
       style: {
         stroke: edgeColor,
         strokeWidth: 3,
         opacity: 0.7,
-      },
-      labelStyle: {
-        fontSize: '11px',
-        fontWeight: '500',
-        fill: edgeColor,
-        background: 'rgba(255, 255, 255, 0.9)',
-        padding: '2px 6px',
-        borderRadius: '4px',
-      },
-      labelBgStyle: {
-        fill: 'rgba(255, 255, 255, 0.9)',
-        fillOpacity: 0.9,
       },
       markerEnd: {
         type: MarkerType.ArrowClosed,
@@ -253,23 +242,21 @@ const convertGraphToFlow = (graph: Graph): { nodes: Node[]; edges: Edge[] } => {
         width: 20,
         height: 20,
       },
-      ...(curvature !== undefined && {
-        pathOptions: {
-          curvature: curvature,
-        },
-      }),
     };
   });
 
   return { nodes, edges };
 };
 
-const MindMap: React.FC<MindMapProps> = ({ graph, onNodeClick }) => {
+const MindMap: React.FC<MindMapProps> = ({ graph, onNodeClick, onGraphUpdate }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [showLegend, setShowLegend] = useState(true);
   const [pendingConnection, setPendingConnection] = useState<Connection | null>(null);
   const [showTypeDialog, setShowTypeDialog] = useState(false);
+  const [selectedEdge, setSelectedEdge] = useState<Edge | null>(null);
+  const [showEdgeDialog, setShowEdgeDialog] = useState(false);
+  const [editingRelationshipType, setEditingRelationshipType] = useState<string>('');
 
   useEffect(() => {
     const { nodes: flowNodes, edges: flowEdges } = convertGraphToFlow(graph);
@@ -291,15 +278,7 @@ const MindMap: React.FC<MindMapProps> = ({ graph, onNodeClick }) => {
         return;
       }
 
-      const existingEdges = edges.filter(
-        (e) =>
-          (e.source === pendingConnection.source && e.target === pendingConnection.target) ||
-          (e.source === pendingConnection.target && e.target === pendingConnection.source)
-      );
-      const edgeCount = existingEdges.length;
-      const curvature = edgeCount > 0 ? (edgeCount - 1) * 0.8 : undefined;
-
-      const edgeType = edgeCount > 0 ? 'bezier' : 'smoothstep';
+      const edgeType = 'straight';
 
       const tempEdge: Edge = {
         id: `temp-${Date.now()}`,
@@ -320,11 +299,6 @@ const MindMap: React.FC<MindMapProps> = ({ graph, onNodeClick }) => {
           width: 20,
           height: 20,
         },
-        ...(curvature !== undefined && {
-          pathOptions: {
-            curvature: curvature,
-          },
-        }),
       };
 
       setEdges((eds) => [...eds, tempEdge]);
@@ -347,25 +321,28 @@ const MindMap: React.FC<MindMapProps> = ({ graph, onNodeClick }) => {
           targetHandle: pendingConnection.targetHandle || null,
           type: edgeType,
           animated: false,
-          label: (
-            <span className="mindmap-edge-label">{relationship.type.replace('_', ' ')}</span>
-          ),
+          label: relationship.type.replace('_', ' '),
+          data: {
+            relationshipType: relationship.type,
+            relationshipId: relationship.id,
+          },
+          labelStyle: {
+            fontSize: '9px',
+            fontWeight: '600',
+            fill: '#333333',
+          },
+          labelBgStyle: {
+            fill: 'rgba(255, 255, 255, 0.95)',
+            fillOpacity: 0.95,
+            stroke: edgeColor,
+            strokeWidth: 1,
+            rx: 4,
+            ry: 4,
+          },
           style: {
             stroke: edgeColor,
             strokeWidth: 3,
             opacity: 0.7,
-          },
-          labelStyle: {
-            fontSize: '11px',
-            fontWeight: '500',
-            fill: edgeColor,
-            background: 'rgba(255, 255, 255, 0.9)',
-            padding: '2px 6px',
-            borderRadius: '4px',
-          },
-          labelBgStyle: {
-            fill: 'rgba(255, 255, 255, 0.9)',
-            fillOpacity: 0.9,
           },
           markerEnd: {
             type: MarkerType.ArrowClosed,
@@ -373,11 +350,6 @@ const MindMap: React.FC<MindMapProps> = ({ graph, onNodeClick }) => {
             width: 20,
             height: 20,
           },
-          ...(curvature !== undefined && {
-            pathOptions: {
-              curvature: curvature,
-            },
-          }),
         };
 
         setEdges((eds) => {
@@ -392,7 +364,7 @@ const MindMap: React.FC<MindMapProps> = ({ graph, onNodeClick }) => {
         setPendingConnection(null);
       }
     },
-    [setEdges, edges, pendingConnection]
+    [setEdges, pendingConnection]
   );
 
   const onConnect = useCallback(
@@ -414,6 +386,65 @@ const MindMap: React.FC<MindMapProps> = ({ graph, onNodeClick }) => {
     [onNodeClick]
   );
 
+  const handleEdgeClick = useCallback(
+    (_event: React.MouseEvent, edge: Edge) => {
+      setSelectedEdge(edge);
+      setEditingRelationshipType(edge.data?.relationshipType || '');
+      setShowEdgeDialog(true);
+    },
+    []
+  );
+
+  const handleDeleteRelationship = useCallback(async () => {
+    if (!selectedEdge?.data?.relationshipId) return;
+
+    try {
+      await relationshipsApi.delete(selectedEdge.data.relationshipId);
+      setShowEdgeDialog(false);
+      setSelectedEdge(null);
+      if (onGraphUpdate) {
+        onGraphUpdate();
+      } else {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error('Failed to delete relationship:', error);
+      alert('Не удалось удалить связь. Попробуйте снова.');
+    }
+  }, [selectedEdge, onGraphUpdate]);
+
+  const handleEditRelationship = useCallback(async () => {
+    if (!selectedEdge?.data?.relationshipId || !editingRelationshipType) return;
+
+    const sourceId = parseInt(selectedEdge.source);
+    const targetId = parseInt(selectedEdge.target);
+
+    if (isNaN(sourceId) || isNaN(targetId)) {
+      alert('Ошибка: неверные ID узлов');
+      return;
+    }
+
+    try {
+      await relationshipsApi.delete(selectedEdge.data.relationshipId);
+      await relationshipsApi.create({
+        source_term_id: sourceId,
+        target_term_id: targetId,
+        type: editingRelationshipType,
+        description: '',
+      });
+      setShowEdgeDialog(false);
+      setSelectedEdge(null);
+      if (onGraphUpdate) {
+        onGraphUpdate();
+      } else {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error('Failed to update relationship:', error);
+      alert('Не удалось обновить связь. Попробуйте снова.');
+    }
+  }, [selectedEdge, editingRelationshipType, onGraphUpdate]);
+
   const nodeTypes = useMemo(() => ({}), []);
 
   return (
@@ -425,6 +456,7 @@ const MindMap: React.FC<MindMapProps> = ({ graph, onNodeClick }) => {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         onNodeClick={handleNodeClick}
+        onEdgeClick={handleEdgeClick}
         nodeTypes={nodeTypes}
         nodesDraggable={true}
         elementsSelectable={false}
@@ -433,7 +465,7 @@ const MindMap: React.FC<MindMapProps> = ({ graph, onNodeClick }) => {
         minZoom={0.3}
         maxZoom={2}
         defaultEdgeOptions={{
-          type: 'smoothstep',
+          type: 'straight',
           animated: false,
           style: {
             strokeWidth: 3,
@@ -533,6 +565,81 @@ const MindMap: React.FC<MindMapProps> = ({ graph, onNodeClick }) => {
             >
               Cancel
             </button>
+          </div>
+        </div>
+      )}
+
+      {showEdgeDialog && selectedEdge && (
+        <div className="mindmap-dialog-overlay" onClick={() => {
+          setShowEdgeDialog(false);
+          setSelectedEdge(null);
+        }}>
+          <div className="mindmap-dialog" onClick={(e) => e.stopPropagation()}>
+            <h3>Edit Relationship</h3>
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500' }}>
+                Relationship Type:
+              </label>
+              <div className="mindmap-dialog-options">
+                {RELATIONSHIP_TYPES.map((rel) => (
+                  <button
+                    key={rel.type}
+                    className={`mindmap-dialog-option ${editingRelationshipType === rel.type ? 'selected' : ''}`}
+                    onClick={() => setEditingRelationshipType(rel.type)}
+                    style={{ borderLeftColor: rel.color }}
+                  >
+                    <div
+                      className="mindmap-dialog-option-color"
+                      style={{ backgroundColor: rel.color }}
+                    />
+                    <span>{rel.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+              <button
+                className="mindmap-dialog-cancel"
+                onClick={() => {
+                  setShowEdgeDialog(false);
+                  setSelectedEdge(null);
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                className="mindmap-dialog-delete"
+                onClick={handleDeleteRelationship}
+                style={{
+                  backgroundColor: '#f44336',
+                  color: 'white',
+                  border: 'none',
+                  padding: '8px 16px',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontWeight: '500',
+                }}
+              >
+                Delete
+              </button>
+              <button
+                className="mindmap-dialog-save"
+                onClick={handleEditRelationship}
+                disabled={!editingRelationshipType}
+                style={{
+                  backgroundColor: '#2196F3',
+                  color: 'white',
+                  border: 'none',
+                  padding: '8px 16px',
+                  borderRadius: '4px',
+                  cursor: editingRelationshipType ? 'pointer' : 'not-allowed',
+                  fontWeight: '500',
+                  opacity: editingRelationshipType ? 1 : 0.5,
+                }}
+              >
+                Save
+              </button>
+            </div>
           </div>
         </div>
       )}

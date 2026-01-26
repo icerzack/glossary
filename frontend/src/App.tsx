@@ -152,7 +152,7 @@ function App() {
         </aside>
 
         <main className="app-main">
-          <MindMap graph={graph} onNodeClick={handleNodeClick} />
+          <MindMap graph={graph} onNodeClick={handleNodeClick} onGraphUpdate={loadData} />
         </main>
       </div>
 
